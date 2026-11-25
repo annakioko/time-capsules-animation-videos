@@ -30,5 +30,5 @@ bash scripts/join.sh episodes/<slug>                          # final.mp4 + yout
 Rules: [STYLE.md](STYLE.md). Working notes for Claude: [CLAUDE.md](CLAUDE.md).
 
 ## Where the videos live
-Finished MP4s are attached to a GitHub Release per episode (tag = episode slug), never committed to git.
-The screening room streams them from there. `*.mp4` and `*.wav` are ignored by git.
+The screening room plays a 720p web copy of each episode from `docs/videos/` (kept under ~50 MB, the only MP4s in git).
+Full-quality 1080p masters for YouTube/Facebook are delivered as files, not committed. `*.wav` and every other `*.mp4` are ignored.
