@@ -1,6 +1,6 @@
 ---
 name: make-episode
-description: Make a Time Capsules "A day in the life of…" history episode from Anna's script - split into chapters, free Kokoro voice, paper-cut shadow-theatre animation, render chapter by chapter, join into one video with one continuous voice, then (after she confirms it is finished) a YouTube + Facebook upload pack with titles, thumbnails, descriptions and hashtags. Use for "make an episode", "here is my script", "/make-episode", "render chapter N", or "package it".
+description: Make a Time Capsules "A day in the life of…" history episode from Anna's script - split into chapters, free Kokoro voice, bright flat cartoon animation (house style), render chapter by chapter, join into one video with one continuous voice, then (after she confirms it is finished) a YouTube + Facebook upload pack with titles, thumbnails, descriptions and hashtags. Use for "make an episode", "here is my script", "/make-episode", "render chapter N", or "package it".
 ---
 
 # Make a Time Capsules episode
@@ -9,8 +9,8 @@ Input: Anna's script (she writes it; use it as written). Output, in order:
 1. `episodes/<slug>/final.mp4`: one video, all chapters joined, one continuous voice, levelled to -14 LUFS, no hiss.
 2. After she confirms the video is finished: one upload pack for the whole episode (YouTube + Facebook).
 
-Read `STYLE.md` first. The look is the paper-cut shadow theatre in `lib/stage.js` + `styles/<culture>/`.
-Reference episode: `episodes/song-wet-nurse/` (copy its chapter structure).
+Read `STYLE.md` first. The house style (since 2026-11-25) is the **bright flat cartoon** kit `styles/flat/flat.js` on the `lib/stage.js` engine.
+Reference chapter: `episodes/style-sample-flat/chapters/ch01` (copy its scenes.js: `F.person`, `F.face`, scenery, slide-ins). `episodes/song-wet-nurse/` shows the chapter/folder structure of a full episode (old paper-cut style; do not use that look unless Anna asks).
 
 ## 0. Setup
 `bash scripts/setup.sh` (the SessionStart hook also runs it).
@@ -26,8 +26,10 @@ Reference episode: `episodes/song-wet-nurse/` (copy its chapter structure).
 - Voice: `python3 scripts/voice.py episodes/<slug> --voice bm_george --speed 0.92` (same voice every episode). It writes `voice.wav` (never committed) and `timings.json`.
 
 ## 3. Animate each chapter
-- `chapters/chNN/scenes.js`: copy a reference chapter. First lines `// @style <culture>` and `// @pad <seconds after the voice>` (pad 1-2 s, last chapter ~5 s for the fade to black).
-- Scene `at` times come from sentence starts in `timings.json`. New scene every 5-12 s; a camera move in every scene; title card after the hook.
+- `chapters/chNN/scenes.js`: copy a reference chapter. First lines `// @style flat` (or the culture's flat kit, e.g. `// @style rome`) and `// @pad <seconds after the voice>` (pad 1-2 s, last chapter ~5 s for the fade to black).
+- Scene `at` times come from sentence starts in `timings.json`. New scene every 5-12 s; a camera move in every scene; title card after the hook. Pass `maxWords: 8` to `Stage.run`.
+- Faces: set every character's face in `update` with `F.face(...)` and change it when the mood changes. People enter by sliding in, never by fading.
+- A new culture/timeline gets its own flat kit (copy `styles/flat/flat.js`, change palette, headwear and set pieces; see STYLE.md).
 - No `Math.random`, `requestAnimationFrame`, `performance.now` or `Date`. Nothing loads from the internet.
 - Check: `node scripts/snap.js episodes/<slug>/chapters/chNN /tmp/x.png <8-12 times>` and look at the sheet. `npx -y hyperframes@0.9.85 lint` inside the chapter must show 0 errors.
 

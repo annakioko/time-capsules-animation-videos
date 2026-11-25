@@ -1,6 +1,6 @@
 # Time Capsules animation repo
 
-"A day in the life of…" history episodes in the paper-cut shadow-theatre style. Read README.md and STYLE.md first.
+"A day in the life of…" history episodes in the **bright flat cartoon** house style (`styles/flat/`, chosen 2026-11-25; the paper-cut `styles/song/` look is retired). Read README.md and STYLE.md first.
 
 **To make an episode, use the make-episode skill (`.claude/skills/make-episode/SKILL.md`).** It has the full workflow:
 Anna's script → chapters of 1-2 min (faster rendering) → free Kokoro voice (`bm_george`, speed 0.92) → animate → render one chapter per command in the background → `scripts/join.sh` (one video, one continuous voice, levelled, audio-checked) → send the 1080p master as a file and ask if it is finished → only then one upload pack for the whole episode (YouTube + Facebook titles, thumbnails, descriptions, tags, hashtags).
