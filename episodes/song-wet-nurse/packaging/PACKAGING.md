@@ -50,4 +50,5 @@ Would you have taken the job?
 - Video: The-Palace-Wet-Nurse-Facebook.mp4 (1080p MP4, same file for YouTube and Facebook)
 - Captions (optional, YouTube and Facebook): subtitles.srt in the episode folder
 - YouTube thumbnail: packaging/youtube-thumb.png ("POISONED MILK?", ch04 at 58 s)
+- YouTube A/B test (Test & compare, 3 thumbnails): A = youtube-thumb.png "POISONED MILK?" (danger), B = facebook-thumb.png "ONE SIP" (curiosity), C = youtube-thumb-c.png "LEFT BEHIND" (sacrifice, ch02 at 37 s)
 - Facebook thumbnail: packaging/facebook-thumb.png ("ONE SIP", ch01 at 38 s; words and bowl inside the central 4:5 area)
