@@ -7,10 +7,31 @@
       "date": "2026-11-25",
       "status": "draft 1",
       "duration": 333,
-      "video": "https://github.com/annakioko/time-capsules-animation-videos/releases/download/song-wet-nurse/the-palace-wet-nurse.mp4",
+      "video": "videos/song-wet-nurse-720p.mp4",
       "poster": "posters/song-wet-nurse.jpg",
       "source": "https://github.com/annakioko/time-capsules-animation-videos/tree/main/episodes/song-wet-nurse",
-      "chapters": []
+      "chapters": [
+        {
+          "at": 0,
+          "title": "The bowl"
+        },
+        {
+          "at": 52,
+          "title": "Chosen"
+        },
+        {
+          "at": 131,
+          "title": "The golden cage"
+        },
+        {
+          "at": 178,
+          "title": "The tasting"
+        },
+        {
+          "at": 293,
+          "title": "Who paid the price"
+        }
+      ]
     }
   ]
 }

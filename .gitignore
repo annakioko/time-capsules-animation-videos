@@ -10,3 +10,4 @@ episodes/*/chapters/*/hyperframes.json
 episodes/*/chapters/*/work-*/
 episodes/*/concat.txt
 episodes/*/chapters/*/index.html
+!docs/videos/*.mp4
