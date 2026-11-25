@@ -3,13 +3,13 @@
 and copy the shared lib/ and styles/ in (HyperFrames renders the chapter folder on its own).
 
 Usage: python3 scripts/build.py episodes/<slug>/chapters/chNN
-Chapter settings come from the top of scenes.js:  // @style song  // @pad 4
+Chapter settings come from the top of scenes.js:  // @style flat  // @pad 4
 """
 import json, os, re, shutil, sys
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 ch = sys.argv[1]
 scenes = open(os.path.join(ch, "scenes.js")).read()
-style = (re.search(r"@style\s+(\w+)", scenes) or [None, "song"])[1]
+style = (re.search(r"@style\s+(\w+)", scenes) or [None, "flat"])[1]
 pad = float((re.search(r"@pad\s+([\d.]+)", scenes) or [None, "0"])[1])
 t = json.load(open(os.path.join(ch, "timings.json")))
 voice = t["duration"]
