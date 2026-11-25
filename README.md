@@ -4,7 +4,7 @@
 parallax camera, warm flicker and film grain, a per-culture palette and border. Fireside second-person narration,
 8-12 minutes, for YouTube and Facebook long-form.
 
-**Watch finished episodes in the browser:** https://annakioko.github.io/time-capsules-animation-videos/
+**Watch finished episodes in full 1080p without downloading:** the Claude artifact "Time Capsules Screening Room" (https://claude.ai/artifact/9K8m2VEg3HHVRVZhbLK9Ae). The GitHub Pages copy in `docs/` (https://annakioko.github.io/time-capsules-animation-videos/) streams a 720p version.
 (the screening room in `docs/`; videos stream, nothing to download).
 
 ## How an episode is made

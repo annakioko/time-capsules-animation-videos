@@ -45,6 +45,7 @@ Reference episode: `episodes/song-wet-nurse/` (copy its chapter structure).
 Then:
 - Encode the 1080p master to send: `ffmpeg -i final.mp4 -c:v libx264 -preset slow -crf 29 -c:a copy -movflags +faststart <slug>-1080p.mp4`, and send it in the chat as a file (crf 29 keeps a 5-minute episode near 135 MB; the film grain makes lower crf huge).
 - Web copy for the screening room: `ffmpeg -i final.mp4 -vf scale=1280:720 -c:v libx264 -preset slow -crf 29 -movflags +faststart -c:a aac -b:a 128k docs/videos/<slug>-720p.mp4` (under 50 MB), add/update the episode in `docs/episodes.json`, poster in `docs/posters/<slug>.jpg`.
+- **Screening room** (stream in full 1080p without downloading): the Claude artifact "Time Capsules Screening Room", slug `43514761-8bac-4aa5-b73f-e2b5b6fb3f8f`. Cut the 1080p master into HLS pieces: `ffmpeg -i <slug>-1080p.mp4 -c copy -f hls -hls_time 8 -hls_playlist_type vod -hls_segment_type fmp4 -hls_fmp4_init_filename init.mp4 -hls_segment_filename '<id>/s%03d.mp4' <id>/index.m3u8`, rename `index.m3u8` to `index.txt`, add `poster.jpg`. Read the artifact's `index.html`, add the episode at the top of the `EPISODES` array (id, title, timeline, status, length, note, chapters in seconds), and publish with the artifact files tool in batches under 60 MB (patch mode keeps the other episodes). Replacing an episode: remove its old pieces in the same publish.
 - Ask: **"Is the video finished, or do you want changes?"** Wait for her answer.
 
 ## 6. Upload pack (only after she confirms it is finished; one pack per whole episode, never per chapter)
