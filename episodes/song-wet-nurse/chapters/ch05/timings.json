@@ -1,0 +1,41 @@
+{
+ "duration": 35.08,
+ "voice": "bm_george",
+ "sentences": [
+  {
+   "i": 1,
+   "para": 1,
+   "start": 0.0,
+   "end": 4.12,
+   "text": "This was the hidden reality of the women who built dynasties."
+  },
+  {
+   "i": 2,
+   "para": 1,
+   "start": 4.42,
+   "end": 10.11,
+   "text": "History books remember the Emperors, the grand battles, and the beautiful Empresses."
+  },
+  {
+   "i": 3,
+   "para": 1,
+   "start": 10.41,
+   "end": 16.34,
+   "text": "But the foundations of these empires were built on the backs of forgotten peasant women."
+  },
+  {
+   "i": 4,
+   "para": 2,
+   "start": 17.04,
+   "end": 26.77,
+   "text": "Women like you, who traded their own children's lives for a chance to survive in a golden cage, risking death with every single feeding."
+  },
+  {
+   "i": 5,
+   "para": 3,
+   "start": 27.47,
+   "end": 34.38,
+   "text": "When we look at the glitz and glamour of ancient empires, we have to ask ourselves: who paid the price for it?"
+  }
+ ]
+}

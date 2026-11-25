@@ -1,0 +1,378 @@
+<title>The Palace Wet Nurse</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=IBM+Plex+Sans:wght@400;500&display=swap">
+<style>
+/* Layout: one shadow-theatre stage, controls beneath, a short parts list. Single dark "theatre" look by design. */
+:root {
+  --void: #0b0605;
+  --panel: #160b08;
+  --line: #3a1f16;
+  --text: #ecdcc2;
+  --muted: #b39a7e;
+  --gold: #d8a547;
+  --red: #9a1f14;
+  --display: "EB Garamond", "Iowan Old Style", Georgia, serif;
+  --ui: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  color-scheme: dark;
+}
+html, body { background: var(--void); color: var(--text); }
+body { font-family: var(--ui); font-size: 15px; line-height: 1.55; }
+.wrap { max-width: 1120px; margin: 0 auto; padding-block: 28px 56px; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); display: grid; gap: 20px; }
+header { display: grid; gap: 4px; }
+.eyebrow { font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--gold); }
+h1 { font-family: var(--display); font-weight: 500; font-size: clamp(26px, 4vw, 38px); line-height: 1.1; margin: 0; text-wrap: balance; }
+header p { margin: 0; color: var(--muted); max-width: 66ch; }
+
+.stage { position: relative; width: 100%; max-width: 100%; aspect-ratio: 16 / 9; container-type: inline-size; background: #000; overflow: hidden; border-radius: 4px; box-shadow: 0 20px 60px rgba(0,0,0,.6); }
+.stage svg { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.grain { position: absolute; inset: 0; pointer-events: none; mix-blend-mode: overlay; opacity: .2; background-size: 180px 180px; }
+.caption { position: absolute; left: 8%; right: 8%; bottom: 9%; text-align: center; font-family: var(--display); font-style: italic; font-size: max(13px, 2.55cqw); line-height: 1.3; color: #fff1d6; text-shadow: 0 0 .5em rgba(0,0,0,.95), 0 0 1.2em rgba(0,0,0,.8); pointer-events: none; text-wrap: balance; }
+.caption span { display: block; }
+.titlecard { position: absolute; inset: 0; display: grid; place-content: center; text-align: center; gap: .3em; pointer-events: none; color: #fbe6c0; font-family: var(--display); text-shadow: 0 0 .6em rgba(0,0,0,.9); }
+.titlecard .small { font-size: max(11px, 1.5cqw); letter-spacing: .32em; text-transform: uppercase; color: var(--gold); }
+.titlecard .big { font-size: max(22px, 5.2cqw); font-weight: 500; line-height: 1; }
+.captions-off .caption { display: none; }
+
+.controls { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
+.controls button { font: 500 14px var(--ui); color: var(--text); background: var(--panel); border: 1px solid var(--line); border-radius: 3px; padding: 7px 14px; cursor: pointer; }
+.controls button:hover { border-color: var(--gold); }
+.controls button:focus-visible, .controls input:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+.controls input[type=range] { flex: 1 1 200px; min-width: 0; accent-color: var(--gold); }
+.time { font-variant-numeric: tabular-nums; color: var(--muted); font-size: 13px; min-width: 7ch; text-align: right; }
+
+.parts { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px 28px; border-top: 1px solid var(--line); padding-top: 20px; }
+.parts h2 { font: 500 12px var(--ui); letter-spacing: .14em; text-transform: uppercase; color: var(--gold); margin: 0 0 6px; }
+.parts p { margin: 0; color: var(--muted); min-width: 0; }
+.parts code { font-size: 13px; color: var(--text); }
+@media (prefers-reduced-motion: reduce) { .grain { display: none; } }
+</style>
+
+<div class="wrap">
+  <header>
+    <div class="eyebrow">Style sample · Song dynasty palace</div>
+    <h1>The Palace Wet Nurse</h1>
+    <p>A 34-second looping opening in the paper-cut shadow-theatre style: cut-out layers drifting in parallax, lantern flicker and grain, with the hook as an on-screen caption.</p>
+  </header>
+
+  <div class="stage" id="stage">
+    <svg id="scene" viewBox="0 0 1600 900" role="img" aria-label="Shadow-theatre scene: a wet nurse rocks a baby by lantern light in a Song palace, as the shadows of three women appear on the paper screen behind her."></svg>
+    <div class="grain" id="grain"></div>
+    <div class="caption" id="caption" aria-live="off">
+      <span id="cap1">Tonight, the baby asleep at your breast is the most important child in China…</span>
+      <span id="cap2">…and there are three women in this palace who claim him.</span>
+    </div>
+    <div class="titlecard" id="titlecard">
+      <div class="small">A day in the life of</div>
+      <div class="big">The Palace Wet Nurse</div>
+      <div class="small">Song dynasty China</div>
+    </div>
+  </div>
+
+  <div class="controls">
+    <button id="play" type="button">Pause</button>
+    <button id="restart" type="button">Restart</button>
+    <button id="caps" type="button" aria-pressed="true">Captions on</button>
+    <input id="scrub" type="range" min="0" max="34" step="0.05" value="0" aria-label="Scene position">
+    <span class="time" id="time">0:00</span>
+  </div>
+
+  <section class="parts" aria-label="Reusable parts">
+    <div><h2>Figures</h2><p><code>wetNurse()</code> seated, rocking, with a baby; <code>courtLady({headdress})</code> standing, with phoenix crown, double-loop bun or veil. Any figure can be drawn as solid ink or as a soft cast shadow.</p></div>
+    <div><h2>Scenery</h2><p><code>paperScreen</code>, <code>latticeWall</code>, <code>ceilingBeam</code>, <code>column</code>, <code>lantern</code>, <code>oilLamp</code>, <code>curtain</code> and the key-fret <code>border</code>. Each sits on its own parallax depth.</p></div>
+    <div><h2>Per-culture look</h2><p>All colours come from one palette object (<code>PALETTES.song</code>). A Rome or Greece episode adds its own palette, border pattern and set pieces, and keeps the camera, flicker, grain and caption timing.</p></div>
+  </section>
+</div>
+
+<script>
+(() => {
+/* ---------- Palette: one object per culture ---------- */
+const PALETTES = {
+  song: {
+    void: '#0b0504', wall: '#2a0c07', paperHi: '#ffdd9e', paperMid: '#f0a14d', paperLow: '#a8421a', paperEdge: '#3a0e06',
+    lacquer: '#9a1f14', lacquerHi: '#cf4a2c', lacquerDark: '#3d0b07', gold: '#d8a547',
+    ink: '#0e0605', inkEdge: '#f0b765', cast: '#1a0502', floorHi: '#2a120a', floorLow: '#0c0504',
+    lanternHi: '#ffb35a', lanternMid: '#c8281a', lanternLow: '#5e0c08', flame: '#ffd27a', flameCore: '#fff3cc'
+  }
+};
+const p = PALETTES.song;
+const LOOP = 34;
+
+/* ---------- Shared defs ---------- */
+const defs = (p) => `
+<defs>
+  <radialGradient id="paperGlow" cx="760" cy="430" r="820" gradientUnits="userSpaceOnUse">
+    <stop offset="0" stop-color="${p.paperHi}"/><stop offset=".35" stop-color="${p.paperMid}"/>
+    <stop offset=".72" stop-color="${p.paperLow}"/><stop offset="1" stop-color="${p.paperEdge}"/>
+  </radialGradient>
+  <radialGradient id="lanternBody" cx=".4" cy=".4" r=".7">
+    <stop offset="0" stop-color="${p.lanternHi}"/><stop offset=".55" stop-color="${p.lanternMid}"/><stop offset="1" stop-color="${p.lanternLow}"/>
+  </radialGradient>
+  <radialGradient id="warmGlow"><stop offset="0" stop-color="#ffcf7a" stop-opacity=".55"/><stop offset="1" stop-color="#ffcf7a" stop-opacity="0"/></radialGradient>
+  <linearGradient id="colGrad" x1="0" x2="1">
+    <stop offset="0" stop-color="${p.lacquerDark}"/><stop offset=".3" stop-color="${p.lacquerHi}"/>
+    <stop offset=".55" stop-color="${p.lacquer}"/><stop offset="1" stop-color="${p.lacquerDark}"/>
+  </linearGradient>
+  <linearGradient id="floorGrad" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="${p.floorHi}"/><stop offset="1" stop-color="${p.floorLow}"/>
+  </linearGradient>
+  <radialGradient id="vignette" cx=".5" cy=".48" r=".75">
+    <stop offset=".55" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".75"/>
+  </radialGradient>
+  <pattern id="lattice" width="96" height="96" patternUnits="userSpaceOnUse" x="-100" y="150">
+    <rect width="96" height="96" fill="none" stroke="${p.lacquerDark}" stroke-width="8"/>
+    <path d="M48 7 L89 48 L48 89 L7 48Z" fill="none" stroke="${p.lacquer}" stroke-width="4"/>
+    <rect x="38" y="38" width="20" height="20" fill="none" stroke="${p.lacquer}" stroke-width="3"/>
+    <path d="M48 7V38 M48 58V89 M7 48H38 M58 48H89" stroke="${p.lacquer}" stroke-width="3"/>
+  </pattern>
+  <pattern id="fret" width="32" height="32" patternUnits="userSpaceOnUse">
+    <rect width="32" height="32" fill="${p.lacquerDark}"/>
+    <path d="M4 28V4H28V24H10V10H22V18H16" fill="none" stroke="${p.gold}" stroke-width="2.4"/>
+  </pattern>
+  <pattern id="beamDots" width="40" height="26" patternUnits="userSpaceOnUse">
+    <rect width="40" height="26" fill="${p.lacquer}"/>
+    <circle cx="20" cy="13" r="6" fill="none" stroke="${p.gold}" stroke-width="2"/><circle cx="20" cy="13" r="2" fill="${p.gold}"/>
+  </pattern>
+  <filter id="cast" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="2.5"/></filter>
+  <filter id="defocus" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="7"/></filter>
+</defs>`;
+
+/* ---------- Scenery components (return SVG markup) ---------- */
+const Scenery = {
+  paperScreen: (p) => `<rect class="paper" x="-120" y="120" width="1840" height="640" fill="url(#paperGlow)"/>`,
+  latticeWall: (p) => `
+    <rect x="-120" y="150" width="1840" height="480" fill="url(#lattice)"/>
+    <rect x="-120" y="140" width="1840" height="16" fill="${p.lacquerDark}"/>
+    <rect x="-120" y="622" width="1840" height="18" fill="${p.lacquerDark}"/>
+    <line x1="-120" y1="640" x2="1720" y2="640" stroke="${p.gold}" stroke-opacity=".6" stroke-width="2"/>
+    <rect x="-120" y="640" width="1840" height="112" fill="${p.wall}"/>
+    ${Array.from({length: 13}, (_, i) => `<rect x="${-100 + i*150}" y="656" width="126" height="80" fill="none" stroke="${p.gold}" stroke-opacity=".22" stroke-width="2"/>`).join('')}`,
+  ceilingBeam: (p) => `
+    <rect x="-120" y="0" width="1840" height="122" fill="${p.wall}"/>
+    <rect x="-120" y="94" width="1840" height="26" fill="url(#beamDots)"/>
+    <line x1="-120" y1="94" x2="1720" y2="94" stroke="${p.gold}" stroke-width="2"/>
+    <line x1="-120" y1="120" x2="1720" y2="120" stroke="${p.gold}" stroke-width="2"/>
+    ${Array.from({length: 12}, (_, i) => { const x = -80 + i*160; return `<path d="M${x-30},120 h60 v14 h-12 v10 h-36 v-10 h-12z" fill="${p.lacquerDark}" stroke="${p.gold}" stroke-opacity=".5"/>`; }).join('')}`,
+  column: (p, x) => `
+    <rect x="${x}" y="110" width="76" height="650" fill="url(#colGrad)"/>
+    <rect x="${x-6}" y="150" width="88" height="18" fill="${p.gold}" opacity=".8"/>
+    <rect x="${x-12}" y="742" width="100" height="26" fill="#2b1a14"/>`,
+  floor: (p) => `
+    <rect x="-120" y="752" width="1840" height="200" fill="url(#floorGrad)"/>
+    <ellipse class="glow" cx="900" cy="790" rx="520" ry="46" fill="#ff9c4a" opacity=".14"/>`,
+  curtain: (p) => `
+    <path d="M-140,0 L240,0 C205,120 160,260 128,380 C116,424 104,466 74,524 C44,604 12,760 -20,900 L-140,900Z" fill="${p.ink}"/>
+    <path d="M240,0 C205,120 160,260 128,380 C116,424 104,466 74,524 C44,604 12,760 -20,900" fill="none" stroke="${p.gold}" stroke-width="3" stroke-opacity=".7"/>
+    <path d="M150,0 C120,140 92,300 70,400 M70,0 C52,160 40,300 30,420 M10,560 C0,660 -20,780 -40,900" stroke="${p.inkEdge}" stroke-opacity=".14" stroke-width="2" fill="none"/>
+    <ellipse cx="116" cy="398" rx="16" ry="30" fill="${p.gold}" transform="rotate(-20 116 398)"/>
+    <path d="M116,420 L108,500 M122,420 L124,506" stroke="${p.gold}" stroke-width="3"/>`,
+  border: (p) => `
+    <path d="M0,0H1600V900H0Z M34,34V866H1566V34Z" fill="url(#fret)" fill-rule="evenodd"/>
+    <rect x="34" y="34" width="1532" height="832" fill="none" stroke="${p.gold}" stroke-width="2.5"/>
+    <rect x="3" y="3" width="1594" height="894" fill="none" stroke="${p.gold}" stroke-width="2"/>`
+};
+
+/* ---------- Props ---------- */
+const Props = {
+  // origin = hang point; inner group #id swings
+  lantern: (p, id, {cord = 100} = {}) => {
+    const cy = cord + 56;
+    return `<g id="${id}">
+      <circle class="glow" cx="0" cy="${cy}" r="180" fill="url(#warmGlow)"/>
+      <line x1="0" y1="-200" x2="0" y2="${cord}" stroke="${p.gold}" stroke-width="2"/>
+      <rect x="-22" y="${cord-4}" width="44" height="12" rx="2" fill="${p.gold}"/>
+      <ellipse cx="0" cy="${cy}" rx="46" ry="56" fill="url(#lanternBody)"/>
+      <ellipse cx="0" cy="${cy}" rx="30" ry="56" fill="none" stroke="${p.gold}" stroke-opacity=".5" stroke-width="1.5"/>
+      <ellipse cx="0" cy="${cy}" rx="13" ry="56" fill="none" stroke="${p.gold}" stroke-opacity=".5" stroke-width="1.5"/>
+      <rect x="-22" y="${cy+48}" width="44" height="12" rx="2" fill="${p.gold}"/>
+      <circle cx="0" cy="${cy+66}" r="5" fill="${p.gold}"/>
+      <path d="M-6,${cy+70} L-11,${cy+128} M0,${cy+70} L0,${cy+134} M6,${cy+70} L11,${cy+128}" stroke="${p.lacquer}" stroke-width="3"/>
+    </g>`;
+  },
+  // origin = floor
+  oilLamp: (p) => `
+    <circle class="glow" cx="0" cy="-206" r="240" fill="url(#warmGlow)"/>
+    <path d="M-30,0 L-6,-30 L6,-30 L30,0" fill="none" stroke="${p.ink}" stroke-width="6"/>
+    <rect x="-4" y="-192" width="8" height="164" fill="${p.ink}"/>
+    <path d="M-32,-196 Q0,-176 32,-196Z" fill="${p.ink}" stroke="${p.inkEdge}" stroke-opacity=".5"/>
+    <g id="flame" transform="translate(0,-198)">
+      <path d="M0,0 C-10,-10 -7,-28 0,-46 C7,-28 10,-10 0,0Z" fill="${p.flame}"/>
+      <path d="M0,-2 C-4,-8 -3,-18 0,-26 C3,-18 4,-8 0,-2Z" fill="${p.flameCore}"/>
+    </g>`
+};
+
+/* ---------- Figures (origin = feet on floor) ---------- */
+const cut = (p) => `stroke="${p.inkEdge}" stroke-opacity=".55" stroke-width="1.6"`;
+const Figures = {
+  // Seated in profile facing right, a swaddled baby at her breast.
+  wetNurse: (p) => `
+    <ellipse cx="20" cy="2" rx="130" ry="10" fill="#000" opacity=".5"/>
+    <path d="M8,-300 C-22,-296 -36,-262 -38,-224 C-40,-196 -44,-176 -52,-160 C-72,-110 -84,-50 -96,0 L132,0 C126,-40 116,-100 112,-150 C110,-168 96,-176 70,-176 L40,-176 C44,-210 42,-260 30,-298Z" fill="${p.ink}" ${cut(p)}/>
+    ${Array.from({length: 10}, (_, i) => `<path d="M${-74 + i*22},-30 l6,8 -6,8 -6,-8z" fill="${p.inkEdge}" opacity=".75"/>`).join('')}
+    <path d="M-40,-190 L46,-188" stroke="${p.inkEdge}" stroke-opacity=".6" stroke-width="1.6"/>
+    <path d="M34,-186 C44,-140 32,-92 46,-44" fill="none" stroke="${p.inkEdge}" stroke-opacity=".5" stroke-width="1.4"/>
+    <path d="M4,-300 L2,-322 L22,-326 L26,-300Z" fill="${p.ink}"/>
+    <g id="nurseHead">
+      <ellipse cx="18" cy="-346" rx="22" ry="25" fill="${p.ink}"/>
+      <path d="M37,-354 L47,-342 L38,-336Z" fill="${p.ink}"/>
+      <ellipse cx="-4" cy="-364" rx="17" ry="13" fill="${p.ink}" ${cut(p)}/>
+      <line x1="-26" y1="-370" x2="24" y2="-382" stroke="${p.ink}" stroke-width="3"/>
+      <circle cx="-26" cy="-370" r="4" fill="${p.gold}"/>
+      <circle cx="24" cy="-347" r="2" fill="${p.inkEdge}" opacity=".7"/>
+    </g>
+    <g id="baby">
+      <ellipse cx="88" cy="-226" rx="52" ry="21" fill="${p.ink}" transform="rotate(14 88 -226)" ${cut(p)}/>
+      <circle cx="46" cy="-248" r="15" fill="${p.ink}" ${cut(p)}/>
+      <path d="M72,-242 Q82,-222 74,-206 M104,-234 Q114,-214 106,-198" fill="none" stroke="${p.inkEdge}" stroke-opacity=".5" stroke-width="1.4"/>
+    </g>
+    <path d="M12,-292 C-10,-262 -14,-222 14,-200 C50,-182 106,-184 138,-204 L134,-218 C104,-206 62,-206 40,-218 C28,-236 30,-266 32,-290Z" fill="${p.ink}" ${cut(p)}/>
+    <ellipse cx="138" cy="-211" rx="10" ry="7" fill="${p.ink}"/>`,
+
+  // Standing, facing the viewer. headdress: 'phoenix' | 'loops' | 'veil'
+  courtLady: (p, {headdress = 'phoenix', fill = p.ink} = {}) => {
+    const hd = {
+      phoenix: `<path d="M-32,-388 L-42,-424 L-24,-408 L-14,-446 L0,-414 L14,-446 L24,-408 L42,-424 L32,-388Z" fill="${fill}"/>
+                <path d="M-30,-396 L-64,-372 M30,-396 L64,-372" stroke="${fill}" stroke-width="4"/>
+                <circle cx="-64" cy="-366" r="6" fill="${fill}"/><circle cx="64" cy="-366" r="6" fill="${fill}"/>`,
+      loops:   `<ellipse cx="-14" cy="-418" rx="11" ry="26" fill="${fill}" transform="rotate(-14 -14 -418)"/>
+                <ellipse cx="14" cy="-418" rx="11" ry="26" fill="${fill}" transform="rotate(14 14 -418)"/>
+                <circle cx="-26" cy="-392" r="7" fill="${fill}"/><circle cx="26" cy="-392" r="7" fill="${fill}"/>`,
+      veil:    `<path d="M0,-416 C32,-412 44,-372 58,-290 L-58,-290 C-44,-372 -32,-412 0,-416Z" fill="${fill}"/>`
+    }[headdress];
+    return `
+      <path d="M-30,-330 C-55,-300 -60,-200 -70,-100 C-80,-50 -95,-10 -108,0 L108,0 C95,-10 80,-50 70,-100 C60,-200 55,-300 30,-330 Q0,-345 -30,-330Z" fill="${fill}"/>
+      <path d="M-30,-325 C-72,-300 -98,-220 -104,-140 L-40,-140 C-40,-220 -34,-280 -24,-318Z" fill="${fill}"/>
+      <path d="M30,-325 C72,-300 98,-220 104,-140 L40,-140 C40,-220 34,-280 24,-318Z" fill="${fill}"/>
+      <rect x="-8" y="-358" width="16" height="32" fill="${fill}"/>
+      <ellipse cx="0" cy="-376" rx="20" ry="24" fill="${fill}"/>
+      ${hd}`;
+  }
+};
+
+/* ---------- Scene: layers with parallax depth ---------- */
+const CASTS = [
+  { x: 330,  scale: 1.32, headdress: 'phoenix', cue: 16.6 },
+  { x: 1160, scale: 1.26, headdress: 'loops',   cue: 18.6 },
+  { x: 1370, scale: 1.18, headdress: 'veil',    cue: 20.6 }
+];
+const LANTERNS = [ { x: 470, y: 120, cord: 100, id: 'lan0' }, { x: 1110, y: 120, cord: 70, id: 'lan1' } ];
+
+const svg = document.getElementById('scene');
+svg.innerHTML = `${defs(p)}
+  <rect width="1600" height="900" fill="${p.void}"/>
+  <g id="cam">
+    <g id="L-wall" data-depth=".2">${Scenery.paperScreen(p)}</g>
+    <g id="L-cast" data-depth=".26">
+      ${CASTS.map((c, i) => `<g id="cast${i}" opacity="0"><g filter="url(#cast)">${Figures.courtLady(p, {headdress: c.headdress, fill: p.cast})}</g></g>`).join('')}
+    </g>
+    <g id="L-room" data-depth=".32">${Scenery.latticeWall(p)}${Scenery.ceilingBeam(p)}</g>
+    <g id="L-floor" data-depth=".55">${Scenery.floor(p)}</g>
+    <g id="L-columns" data-depth=".7">${Scenery.column(p, 110)}${Scenery.column(p, 1420)}</g>
+    <g id="L-lanterns" data-depth=".6">
+      ${LANTERNS.map(l => `<g transform="translate(${l.x},${l.y})">${Props.lantern(p, l.id, {cord: l.cord})}</g>`).join('')}
+    </g>
+    <g id="L-lamp" data-depth=".8"><g transform="translate(1000,770)">${Props.oilLamp(p)}</g></g>
+    <g id="L-nurse" data-depth=".75"><g transform="translate(700,772) scale(1.18)"><g id="nurse">${Figures.wetNurse(p)}</g></g></g>
+    <g id="L-fore" data-depth="1.7">
+      ${Scenery.curtain(p)}
+      <g transform="translate(1600,0) scale(-1,1)">${Scenery.curtain(p)}</g>
+      <g filter="url(#defocus)" opacity=".9"><g transform="translate(1250,-40) scale(1.8)">${Props.lantern(p, 'lan2', {cord: 40})}</g></g>
+    </g>
+  </g>
+  <rect id="warm" width="1600" height="900" fill="#ff8a2a" style="mix-blend-mode:soft-light" opacity=".1"/>
+  <rect width="1600" height="900" fill="url(#vignette)"/>
+  ${Scenery.border(p)}
+  <rect id="dark" width="1600" height="900" fill="#000" opacity="1"/>`;
+
+/* ---------- Animation ---------- */
+const $ = (id) => document.getElementById(id);
+const layers = [...svg.querySelectorAll('[data-depth]')].map(el => [el, +el.dataset.depth]);
+const glows = [...svg.querySelectorAll('.glow')].map(el => [el, +(el.getAttribute('opacity') || 1)]);
+const paper = svg.querySelector('.paper');
+const casts = CASTS.map((c, i) => $('cast' + i));
+const lanterns = ['lan0', 'lan1', 'lan2'].map($);
+const els = { cam: $('cam'), nurse: $('nurse'), head: $('nurseHead'), baby: $('baby'), flame: $('flame'), warm: $('warm'), dark: $('dark'),
+  cap1: $('cap1'), cap2: $('cap2'), title: $('titlecard'), scrub: $('scrub'), time: $('time') };
+
+const clamp = (v) => Math.max(0, Math.min(1, v));
+const ease = (v) => v * v * (3 - 2 * v);
+const ramp = (t, a, b) => ease(clamp((t - a) / (b - a)));
+const win = (t, a, b, f = 1.2) => ramp(t, a, a + f) * (1 - ramp(t, b - f, b));
+
+function render(t) {
+  const TAU = Math.PI * 2;
+  const cam = 36 * Math.sin(TAU * t / LOOP);
+  const zoom = 1.035 + 0.02 * Math.sin(TAU * t / LOOP - 1);
+  els.cam.setAttribute('transform', `translate(800 450) scale(${zoom}) translate(-800 -450)`);
+  for (const [el, d] of layers) el.setAttribute('transform', `translate(${(-cam * d).toFixed(2)},0)`);
+
+  const f = 0.5 * Math.sin(t * 7.3) + 0.3 * Math.sin(t * 13.1 + 1) + 0.2 * Math.sin(t * 23.7 + 2);
+  for (const [el, base] of glows) el.setAttribute('opacity', (base * (0.85 + 0.15 * f)).toFixed(3));
+  paper.setAttribute('opacity', (0.92 + 0.06 * f).toFixed(3));
+  els.flame.setAttribute('transform', `translate(0,-198) scale(${1 + 0.05 * Math.sin(t * 17)},${1 + 0.12 * f})`);
+  els.warm.setAttribute('opacity', (0.1 + 0.04 * f).toFixed(3));
+
+  lanterns.forEach((el, i) => el.setAttribute('transform', `rotate(${(1.6 + i * 0.4) * Math.sin(t * (0.9 + i * 0.17) + i * 2)})`));
+  els.nurse.setAttribute('transform', `rotate(${1.8 * Math.sin(t * 1.9)} 20 0)`);
+  const look = ramp(t, 16.6, 18.4) * (1 - ramp(t, 29, 31.5));
+  els.head.setAttribute('transform', `rotate(${-7 * look} 14 -322)`);
+  els.baby.setAttribute('transform', `translate(88 -226) scale(${1 + 0.018 * Math.sin(t * 2.3)}) translate(-88 226)`);
+
+  CASTS.forEach((c, i) => {
+    const a = ramp(t, c.cue, c.cue + 2) * (1 - ramp(t, LOOP - 3.5, LOOP - 1.5));
+    const s = c.scale * (1.14 - 0.14 * a);
+    casts[i].setAttribute('opacity', (0.93 * a).toFixed(3));
+    casts[i].setAttribute('transform', `translate(${c.x},770) scale(${s.toFixed(4)})`);
+  });
+
+  const fadeIn = 1 - ramp(t, 0, 2.8);
+  const fadeOut = ramp(t, LOOP - 2, LOOP);
+  const dim = 0.2 * ramp(t, 16, 19) * (1 - ramp(t, 27, 30));
+  const titleA = win(t, 26.8, 32.2, 1.4);
+  els.dark.setAttribute('opacity', Math.max(fadeIn, fadeOut, dim, 0.45 * titleA).toFixed(3));
+  els.cap1.style.opacity = win(t, 5, 15.6, 1.4);
+  els.cap2.style.opacity = win(t, 17.2, 26.2, 1.4);
+  els.title.style.opacity = titleA;
+
+  els.scrub.value = t.toFixed(2);
+  const s = Math.floor(t);
+  els.time.textContent = `0:${String(s).padStart(2, '0')} / 0:${LOOP}`;
+}
+
+/* ---------- Film grain ---------- */
+const grainEl = $('grain');
+const grainFrames = Array.from({length: 4}, () => {
+  const c = document.createElement('canvas'); c.width = c.height = 180;
+  const ctx = c.getContext('2d'); const img = ctx.createImageData(180, 180);
+  for (let i = 0; i < img.data.length; i += 4) { const v = Math.random() * 255; img.data[i] = img.data[i+1] = img.data[i+2] = v; img.data[i+3] = 255; }
+  ctx.putImageData(img, 0, 0); return `url(${c.toDataURL()})`;
+});
+
+/* ---------- Playback ---------- */
+const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+let playing = !reduced, t = reduced ? 24 : 0, last = null, frame = 0;
+const playBtn = $('play');
+function setPlaying(v) { playing = v; playBtn.textContent = v ? 'Pause' : 'Play'; last = null; }
+function tick(now) {
+  if (playing) {
+    if (last !== null) t = (t + Math.min(0.1, (now - last) / 1000)) % LOOP;
+    last = now;
+    render(t);
+    if (++frame % 5 === 0) grainEl.style.backgroundImage = grainFrames[(frame / 5) % 4];
+  }
+  requestAnimationFrame(tick);
+}
+grainEl.style.backgroundImage = grainFrames[0];
+render(t); setPlaying(playing);
+requestAnimationFrame(tick);
+
+playBtn.addEventListener('click', () => setPlaying(!playing));
+$('restart').addEventListener('click', () => { t = 0; render(t); setPlaying(true); });
+$('caps').addEventListener('click', (e) => {
+  const on = $('stage').classList.toggle('captions-off') === false;
+  e.currentTarget.textContent = on ? 'Captions on' : 'Captions off';
+  e.currentTarget.setAttribute('aria-pressed', String(on));
+});
+els.scrub.addEventListener('input', () => { t = +els.scrub.value; render(t); });
+})();
+</script>
