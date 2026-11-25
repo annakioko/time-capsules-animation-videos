@@ -15,8 +15,11 @@ bash scripts/setup.sh                                        # once per session:
 python3 scripts/voice.py episodes/<slug> --speed 0.92         # voices every chapter, writes timings.json
 node scripts/snap.js episodes/<slug>/chapters/ch01 /tmp/c1.png 2 10 20 30   # preview frames before rendering
 bash scripts/render.sh episodes/<slug>/chapters/ch01          # one chapter at a time, in the background
-bash scripts/join.sh episodes/<slug>                          # final.mp4 + youtube-chapters.txt + subtitles.srt
+bash scripts/join.sh episodes/<slug>                          # one final.mp4 (levelled, audio-checked) + youtube-chapters.txt + subtitles.srt
+node scripts/thumbnail.js episodes/<slug>/chapters/ch01 18 episodes/<slug>/packaging/youtube-thumb.png "TASTE IT FIRST" --accent FIRST
 ```
+
+The whole flow, including the YouTube + Facebook upload pack, is in the **make-episode** skill (`.claude/skills/make-episode/SKILL.md`).
 
 ## Layout
 | Path | What it is |
