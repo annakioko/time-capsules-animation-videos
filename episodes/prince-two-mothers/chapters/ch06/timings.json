@@ -1,0 +1,97 @@
+{
+ "duration": 42.04,
+ "voice": "bm_george",
+ "sentences": [
+  {
+   "i": 1,
+   "para": 1,
+   "start": 0.0,
+   "end": 2.24,
+   "text": "At night, she is the one who stays."
+  },
+  {
+   "i": 2,
+   "para": 1,
+   "start": 2.54,
+   "end": 4.1,
+   "text": "She checks the windows."
+  },
+  {
+   "i": 3,
+   "para": 1,
+   "start": 4.4,
+   "end": 6.3,
+   "text": "She tastes your water."
+  },
+  {
+   "i": 4,
+   "para": 1,
+   "start": 6.6,
+   "end": 9.86,
+   "text": "She sits by your bed until your eyes close."
+  },
+  {
+   "i": 5,
+   "para": 2,
+   "start": 10.56,
+   "end": 15.87,
+   "text": "And tonight, half asleep, you whisper the word you are never allowed to say out loud."
+  },
+  {
+   "i": 6,
+   "para": 3,
+   "start": 16.57,
+   "end": 18.0,
+   "text": "\"Goodnight, mother.\""
+  },
+  {
+   "i": 7,
+   "para": 4,
+   "start": 18.7,
+   "end": 19.96,
+   "text": "She freezes."
+  },
+  {
+   "i": 8,
+   "para": 4,
+   "start": 20.26,
+   "end": 24.95,
+   "text": "Then she presses her hand over your mouth, gently, and looks at the door."
+  },
+  {
+   "i": 9,
+   "para": 4,
+   "start": 25.25,
+   "end": 31.35,
+   "text": "Because if the consort ever hears you call a servant \"mother\", the nurse will be sent away."
+  },
+  {
+   "i": 10,
+   "para": 4,
+   "start": 31.65,
+   "end": 32.72,
+   "text": "Or worse."
+  },
+  {
+   "i": 11,
+   "para": 5,
+   "start": 33.42,
+   "end": 35.62,
+   "text": "She kisses your forehead."
+  },
+  {
+   "i": 12,
+   "para": 5,
+   "start": 35.92,
+   "end": 37.37,
+   "text": "She says nothing."
+  },
+  {
+   "i": 13,
+   "para": 5,
+   "start": 37.67,
+   "end": 41.34,
+   "text": "But she does not stop crying until the candle goes out."
+  }
+ ]
+}

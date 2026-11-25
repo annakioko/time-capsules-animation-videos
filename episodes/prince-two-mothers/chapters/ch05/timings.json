@@ -1,0 +1,104 @@
+{
+ "duration": 50.05,
+ "voice": "bm_george",
+ "sentences": [
+  {
+   "i": 1,
+   "para": 1,
+   "start": 0.0,
+   "end": 3.61,
+   "text": "You have never walked through the city outside these walls."
+  },
+  {
+   "i": 2,
+   "para": 1,
+   "start": 3.91,
+   "end": 8.13,
+   "text": "You have heard it: the drums, the markets, the carts, the shouting."
+  },
+  {
+   "i": 3,
+   "para": 1,
+   "start": 8.43,
+   "end": 15.13,
+   "text": "Some evenings you climb the garden stones to look at the rooftops of Kaifeng, glowing in the sunset."
+  },
+  {
+   "i": 4,
+   "para": 2,
+   "start": 15.83,
+   "end": 17.66,
+   "text": "A hand pulls you down."
+  },
+  {
+   "i": 5,
+   "para": 2,
+   "start": 17.96,
+   "end": 19.03,
+   "text": "Your nurse."
+  },
+  {
+   "i": 6,
+   "para": 2,
+   "start": 19.33,
+   "end": 22.91,
+   "text": "\"If a guard sees you, I will be beaten, not you.\""
+  },
+  {
+   "i": 7,
+   "para": 3,
+   "start": 23.61,
+   "end": 28.97,
+   "text": "You sit together against the wall, and you ask her the question you always ask."
+  },
+  {
+   "i": 8,
+   "para": 3,
+   "start": 29.27,
+   "end": 30.89,
+   "text": "What is it like out there?"
+  },
+  {
+   "i": 9,
+   "para": 4,
+   "start": 31.59,
+   "end": 36.86,
+   "text": "She tells you about mud and rice fields and a little house by a willow tree."
+  },
+  {
+   "i": 10,
+   "para": 4,
+   "start": 37.16,
+   "end": 38.48,
+   "text": "Then she stops."
+  },
+  {
+   "i": 11,
+   "para": 4,
+   "start": 38.78,
+   "end": 40.0,
+   "text": "You know why."
+  },
+  {
+   "i": 12,
+   "para": 4,
+   "start": 40.3,
+   "end": 44.29,
+   "text": "Somewhere out there is the baby she left behind to feed you."
+  },
+  {
+   "i": 13,
+   "para": 4,
+   "start": 44.59,
+   "end": 47.06,
+   "text": "Her child would be nine now too."
+  },
+  {
+   "i": 14,
+   "para": 4,
+   "start": 47.36,
+   "end": 49.35,
+   "text": "She has never seen them again."
+  }
+ ]
+}

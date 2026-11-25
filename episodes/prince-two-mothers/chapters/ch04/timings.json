@@ -1,0 +1,118 @@
+{
+ "duration": 50.79,
+ "voice": "bm_george",
+ "sentences": [
+  {
+   "i": 1,
+   "para": 1,
+   "start": 0.0,
+   "end": 3.18,
+   "text": "In the afternoon, a eunuch brings a message."
+  },
+  {
+   "i": 2,
+   "para": 1,
+   "start": 3.48,
+   "end": 6.74,
+   "text": "The Empress wishes to see you in her garden."
+  },
+  {
+   "i": 3,
+   "para": 2,
+   "start": 7.44,
+   "end": 10.45,
+   "text": "She is the woman your nurse taught you to fear."
+  },
+  {
+   "i": 4,
+   "para": 2,
+   "start": 10.75,
+   "end": 15.02,
+   "text": "The woman who, nine years ago, may have tried to poison your milk."
+  },
+  {
+   "i": 5,
+   "para": 2,
+   "start": 15.32,
+   "end": 17.07,
+   "text": "Today she smiles."
+  },
+  {
+   "i": 6,
+   "para": 2,
+   "start": 17.37,
+   "end": 19.97,
+   "text": "She calls you a fine young prince."
+  },
+  {
+   "i": 7,
+   "para": 2,
+   "start": 20.27,
+   "end": 23.3,
+   "text": "She offers you a sweet from a lacquered box."
+  },
+  {
+   "i": 8,
+   "para": 3,
+   "start": 24.0,
+   "end": 25.9,
+   "text": "Your hand reaches out."
+  },
+  {
+   "i": 9,
+   "para": 3,
+   "start": 26.2,
+   "end": 29.65,
+   "text": "Then you remember the voice at the door every morning."
+  },
+  {
+   "i": 10,
+   "para": 4,
+   "start": 30.35,
+   "end": 31.83,
+   "text": "You bow deeply."
+  },
+  {
+   "i": 11,
+   "para": 4,
+   "start": 32.13,
+   "end": 33.28,
+   "text": "You thank her."
+  },
+  {
+   "i": 12,
+   "para": 4,
+   "start": 33.58,
+   "end": 37.72,
+   "text": "You say your tutor forbids sweets before evening lessons."
+  },
+  {
+   "i": 13,
+   "para": 4,
+   "start": 38.02,
+   "end": 39.55,
+   "text": "You do not take it."
+  },
+  {
+   "i": 14,
+   "para": 5,
+   "start": 40.25,
+   "end": 41.89,
+   "text": "She smiles wider."
+  },
+  {
+   "i": 15,
+   "para": 5,
+   "start": 42.19,
+   "end": 46.65,
+   "text": "And in that smile, you understand something no tutor ever taught you."
+  },
+  {
+   "i": 16,
+   "para": 5,
+   "start": 46.95,
+   "end": 50.09,
+   "text": "In the palace, kindness is a weapon too."
+  }
+ ]
+}

@@ -1,6 +1,47 @@
 {
   "episodes": [
     {
+      "id": "prince-two-mothers",
+      "title": "The Prince With Two Mothers",
+      "timeline": "Song dynasty China",
+      "date": "2026-11-25",
+      "status": "draft 1",
+      "duration": 400,
+      "video": "videos/prince-two-mothers-720p.mp4",
+      "poster": "posters/prince-two-mothers.jpg",
+      "source": "https://github.com/annakioko/time-capsules-animation-videos/tree/main/episodes/prince-two-mothers",
+      "chapters": [
+        {
+          "at": 0,
+          "title": "The taster"
+        },
+        {
+          "at": 74,
+          "title": "Two mothers"
+        },
+        {
+          "at": 121,
+          "title": "The lesson"
+        },
+        {
+          "at": 169,
+          "title": "The Empress's garden"
+        },
+        {
+          "at": 222,
+          "title": "The walls"
+        },
+        {
+          "at": 273,
+          "title": "The secret"
+        },
+        {
+          "at": 317,
+          "title": "Who raised the emperor"
+        }
+      ]
+    },
+    {
       "id": "song-wet-nurse",
       "title": "The Palace Wet Nurse",
       "timeline": "Song dynasty China",
