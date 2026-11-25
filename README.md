@@ -1,1 +1,34 @@
-# time-capsules-animation-videos
+# Time Capsules: animation studio
+
+"A day in the life of…" history episodes in a paper-cut shadow-theatre style: layered silhouettes lit by firelight,
+parallax camera, warm flicker and film grain, a per-culture palette and border. Fireside second-person narration,
+8-12 minutes, for YouTube and Facebook long-form.
+
+**Watch finished episodes in the browser:** https://annakioko.github.io/time-capsules-animation-videos/
+(the screening room in `docs/`; videos stream, nothing to download).
+
+## How an episode is made
+script → free Kokoro voice (`bm_george`, same as the video-studio repo) → one HTML stage per chapter → HyperFrames render → join → screening room.
+
+```bash
+bash scripts/setup.sh                                        # once per session: voice model, ffmpeg, HyperFrames
+python3 scripts/voice.py episodes/<slug> --speed 0.92         # voices every chapter, writes timings.json
+node scripts/snap.js episodes/<slug>/chapters/ch01 /tmp/c1.png 2 10 20 30   # preview frames before rendering
+bash scripts/render.sh episodes/<slug>/chapters/ch01          # one chapter at a time, in the background
+bash scripts/join.sh episodes/<slug>                          # final.mp4 + youtube-chapters.txt + subtitles.srt
+```
+
+## Layout
+| Path | What it is |
+|---|---|
+| `lib/stage.js` | The engine shared by every timeline: scenes, camera push/pan, parallax layers (`data-depth`), firelight flicker (`.glow`, `.flame`, `.sway`), grain, burned-in subtitles, title cards, fades. Every frame is a pure function of time. |
+| `styles/<culture>/` | One kit per timeline/culture: palette, border, scenery, props, figures. `styles/song/` is Song dynasty China (`sample.html` is the original 34-second style sample). |
+| `templates/chapter.html` | The chapter page; `scripts/build.py` fills it from a chapter's `scenes.js` + `timings.json`. |
+| `episodes/<slug>/` | `script.md` (the script as written, voicing notes, history notes) and `chapters/chNN/` (`narration.txt`, `title.txt`, `scenes.js`, `timings.json`). |
+| `docs/` | The screening room (GitHub Pages). `episodes.json` lists the episodes. |
+
+Rules: [STYLE.md](STYLE.md). Working notes for Claude: [CLAUDE.md](CLAUDE.md).
+
+## Where the videos live
+Finished MP4s are attached to a GitHub Release per episode (tag = episode slug), never committed to git.
+The screening room streams them from there. `*.mp4` and `*.wav` are ignored by git.

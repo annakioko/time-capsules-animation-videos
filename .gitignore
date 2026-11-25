@@ -1,0 +1,12 @@
+*.mp4
+*.wav
+*.mp3
+node_modules/
+.hyperframes/
+.*.hf-transaction-*/
+episodes/*/chapters/*/lib/
+episodes/*/chapters/*/styles/
+episodes/*/chapters/*/hyperframes.json
+episodes/*/chapters/*/work-*/
+episodes/*/concat.txt
+episodes/*/chapters/*/index.html

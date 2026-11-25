@@ -1,0 +1,16 @@
+{
+  "episodes": [
+    {
+      "id": "song-wet-nurse",
+      "title": "The Palace Wet Nurse",
+      "timeline": "Song dynasty China",
+      "date": "2026-11-25",
+      "status": "draft 1",
+      "duration": 333,
+      "video": "https://github.com/annakioko/time-capsules-animation-videos/releases/download/song-wet-nurse/the-palace-wet-nurse.mp4",
+      "poster": "posters/song-wet-nurse.jpg",
+      "source": "https://github.com/annakioko/time-capsules-animation-videos/tree/main/episodes/song-wet-nurse",
+      "chapters": []
+    }
+  ]
+}

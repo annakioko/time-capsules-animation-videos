@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Time Capsules Screening Room</title>
+<style>
+@font-face { font-family: "EB Garamond"; font-weight: 400; src: url("fonts/eb-garamond-latin-400-normal.woff2") format("woff2"); }
+@font-face { font-family: "EB Garamond"; font-weight: 400; font-style: italic; src: url("fonts/eb-garamond-latin-400-italic.woff2") format("woff2"); }
+:root { --void: #0b0605; --panel: #160b08; --line: #3a1f16; --text: #ecdcc2; --muted: #b39a7e; --gold: #d8a547; color-scheme: dark; }
+* { box-sizing: border-box; }
+html, body { margin: 0; background: var(--void); color: var(--text); }
+body { font: 16px/1.55 system-ui, -apple-system, "Segoe UI", sans-serif; }
+.wrap { max-width: 1120px; margin: 0 auto; padding: 28px 16px 64px; display: grid; gap: 28px; }
+header .eyebrow, h2 { font-size: 12px; letter-spacing: .16em; text-transform: uppercase; color: var(--gold); margin: 0; font-weight: 500; }
+h1 { font-family: "EB Garamond", Georgia, serif; font-weight: 400; font-size: clamp(30px, 5vw, 46px); line-height: 1.05; margin: 4px 0 6px; }
+header p { margin: 0; color: var(--muted); max-width: 66ch; }
+.player { display: grid; gap: 12px; }
+video { width: 100%; aspect-ratio: 16/9; background: #000; border-radius: 4px; box-shadow: 0 20px 60px rgba(0,0,0,.6); display: block; }
+.now h3 { font-family: "EB Garamond", Georgia, serif; font-weight: 400; font-size: 28px; margin: 0; }
+.now p { margin: 2px 0 0; color: var(--muted); }
+.links { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 8px; }
+.links a, .chapters button { color: var(--text); background: var(--panel); border: 1px solid var(--line); border-radius: 3px; padding: 6px 12px; text-decoration: none; font-size: 14px; cursor: pointer; font-family: inherit; }
+.links a:hover, .chapters button:hover { border-color: var(--gold); }
+.chapters { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+.timeline { display: grid; gap: 12px; border-top: 1px solid var(--line); padding-top: 18px; }
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 16px; }
+.card { background: var(--panel); border: 1px solid var(--line); border-radius: 4px; overflow: hidden; cursor: pointer; text-align: left; color: inherit; padding: 0; font: inherit; }
+.card:hover, .card[aria-current="true"] { border-color: var(--gold); }
+.card img { width: 100%; aspect-ratio: 16/9; object-fit: cover; display: block; background: #000; }
+.card div { padding: 10px 12px 12px; }
+.card b { font-family: "EB Garamond", Georgia, serif; font-weight: 400; font-size: 20px; display: block; line-height: 1.15; }
+.card span { color: var(--muted); font-size: 13px; }
+.empty { color: var(--muted); font-style: italic; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="eyebrow">Time Capsules · screening room</div>
+    <h1>A day in the life of…</h1>
+    <p>Every finished episode, playable here without downloading. Grouped by timeline.</p>
+  </header>
+
+  <section class="player" aria-label="Now playing">
+    <video id="video" controls preload="metadata" playsinline></video>
+    <div class="now"><h3 id="title"></h3><p id="meta"></p>
+      <div class="chapters" id="chapters"></div>
+      <div class="links" id="links"></div></div>
+  </section>
+
+  <div id="timelines"></div>
+</div>
+<script>
+(async () => {
+  const data = await (await fetch('episodes.json', { cache: 'no-store' })).json();
+  const $ = (id) => document.getElementById(id);
+  const fmt = (s) => `${Math.floor(s / 60)}:${String(Math.floor(s % 60)).padStart(2, '0')}`;
+  const cards = [];
+  function play(ep, autoplay) {
+    $('video').src = ep.video; $('video').poster = ep.poster || '';
+    $('title').textContent = ep.title;
+    $('meta').textContent = [ep.timeline, ep.duration && fmt(ep.duration), ep.status].filter(Boolean).join(' · ');
+    $('chapters').innerHTML = '';
+    (ep.chapters || []).forEach(c => { const b = document.createElement('button'); b.textContent = `${fmt(c.at)} ${c.title}`; b.onclick = () => { $('video').currentTime = c.at; $('video').play(); }; $('chapters').appendChild(b); });
+    $('links').innerHTML = `<a href="${ep.video}" download>Download MP4</a>${ep.source ? `<a href="${ep.source}">Source</a>` : ''}`;
+    cards.forEach(([c, e]) => c.setAttribute('aria-current', String(e === ep)));
+    history.replaceState(null, '', '#' + ep.id);
+    if (autoplay) $('video').play().catch(() => {});
+  }
+  const groups = {};
+  data.episodes.forEach(ep => (groups[ep.timeline] = groups[ep.timeline] || []).push(ep));
+  for (const [tl, eps] of Object.entries(groups)) {
+    const sec = document.createElement('section'); sec.className = 'timeline';
+    sec.innerHTML = `<h2>${tl}</h2><div class="grid"></div>`;
+    eps.forEach(ep => {
+      const b = document.createElement('button'); b.className = 'card';
+      b.innerHTML = `<img src="${ep.poster || ''}" alt=""><div><b>${ep.title}</b><span>${[ep.duration && fmt(ep.duration), ep.date].filter(Boolean).join(' · ')}</span></div>`;
+      b.onclick = () => { play(ep, true); window.scrollTo({ top: 0, behavior: 'smooth' }); };
+      sec.querySelector('.grid').appendChild(b); cards.push([b, ep]);
+    });
+    $('timelines').appendChild(sec);
+  }
+  const first = data.episodes.find(e => '#' + e.id === location.hash) || data.episodes[0];
+  if (first) play(first, false); else $('title').textContent = 'No episodes yet';
+})();
+</script>
+</body>
+</html>
