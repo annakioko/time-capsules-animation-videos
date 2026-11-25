@@ -65,7 +65,7 @@ Save everything in `episodes/<slug>/packaging/` and send the images and `PACKAGI
 
 ### Facebook (long-form landscape)
 - **Title**: more emotional than YouTube, written for scrollers. Max ~60 characters.
-- **Thumbnail** (1280x720): its own image, different frame or words from YouTube, tuned to the Facebook title, `--side center` so words and figure sit in the central 4:5 area (a feed crop keeps them).
+- **Thumbnail** (1280x720): its own image, different frame or words from YouTube, tuned to the Facebook title, `--side center --valign top` (words above the subject) so words and subject sit in the central 4:5 area (a feed crop keeps them).
 - **Caption**: first line is a bold hook with contrast or tension (only it shows before "See more"). Then 2-4 short lines, 2-3 key moments with timestamps, and a question for comments.
 - **Hashtags**: 3-5, broad plus niche (#history #ancienthistory + the culture).
 - Upload `subtitles.srt` as captions (most Facebook viewers watch muted; subtitles are also burned in).
