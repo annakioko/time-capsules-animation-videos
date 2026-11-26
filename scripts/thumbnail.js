@@ -29,6 +29,7 @@ const { execFileSync } = require('child_process');
   await page.evaluate(({ words, small, side, accent, valign }) => {
     document.querySelectorAll('.caption, .titlecard, .playbtn').forEach(e => e.style.display = 'none');
     const root = document.getElementById('root');
+    const flat = !!window.FlatStyle; // bright flat episodes: rounded bold font with a dark outline
     const css = document.createElement('style');
     css.textContent = `
       .thumb-shade { position:absolute; inset:0; pointer-events:none; z-index:8;
@@ -36,12 +37,12 @@ const { execFileSync } = require('child_process');
           : `linear-gradient(${side === 'left' ? '90deg' : '270deg'}, rgba(5,2,1,.88) 0%, rgba(5,2,1,.55) 38%, rgba(0,0,0,0) 62%)`}; }
       .thumb-text { position:absolute; top:0; bottom:0; z-index:9; display:flex; flex-direction:column; justify-content:${valign === 'top' ? 'flex-start; padding-top:90px' : valign === 'bottom' ? 'flex-end; padding-bottom:90px' : 'center'}; gap:22px;
         ${side === 'left' ? 'left:110px; width:900px; text-align:left;' : side === 'right' ? 'right:110px; width:900px; text-align:right;' : 'left:0; right:0; text-align:center; align-items:center;'}
-        font-family:"EB Garamond", Georgia, serif; }
-      .thumb-small { font-size:44px; letter-spacing:.22em; text-transform:uppercase; color:#e0ad4f; font-weight:500;
+        font-family:${flat ? '"Fredoka", sans-serif' : '"EB Garamond", Georgia, serif'}; }
+      .thumb-small { font-size:44px; letter-spacing:${flat ? '.1em' : '.22em'}; text-transform:uppercase; color:${flat ? '#ffd76a' : '#e0ad4f'}; font-weight:${flat ? 600 : 500};${flat ? ' -webkit-text-stroke: 8px #2d2030; paint-order: stroke fill;' : ''}
         text-shadow:0 0 14px #000, 0 2px 4px #000; }
-      .thumb-big { font-size:190px; line-height:.9; font-weight:500; color:#fff1d6; text-transform:uppercase;
-        text-shadow:0 0 30px rgba(0,0,0,.95), 0 6px 10px #000; -webkit-text-stroke: 2px rgba(0,0,0,.35); }
-      .thumb-big .acc { color:#e04a2a; }`;
+      .thumb-big { font-size:${flat ? 170 : 190}px; line-height:.92; font-weight:${flat ? 700 : 500}; color:${flat ? '#fff' : '#fff1d6'}; text-transform:uppercase;
+        ${flat ? '-webkit-text-stroke: 18px #2d2030; paint-order: stroke fill; text-shadow: 0 10px 0 #2d2030;' : 'text-shadow:0 0 30px rgba(0,0,0,.95), 0 6px 10px #000; -webkit-text-stroke: 2px rgba(0,0,0,.35);'} }
+      .thumb-big .acc { color:${flat ? '#ff5a3c' : '#e04a2a'}; }`;
     document.head.appendChild(css);
     const shade = document.createElement('div'); shade.className = 'thumb-shade'; root.appendChild(shade);
     const box = document.createElement('div'); box.className = 'thumb-text';
