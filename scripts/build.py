@@ -18,6 +18,9 @@ title = open(os.path.join(ch, "title.txt")).read().strip() if os.path.exists(os.
 html = open(os.path.join(ROOT, "templates", "chapter.html")).read()
 html = (html.replace("{{TITLE}}", title).replace("{{STYLE}}", style).replace("{{DURATION}}", str(dur))
             .replace("{{VOICE}}", str(voice)).replace("{{TIMINGS}}", json.dumps(t)))
+# optional episode-wide cast/helpers: episodes/<slug>/cast.js is inlined before scenes.js
+cast_f = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(ch))), "cast.js")
+html = html.replace("{{CAST}}", open(cast_f).read() if os.path.exists(cast_f) else "")
 open(os.path.join(ch, "index.html"), "w").write(html)
 for d in ("lib", os.path.join("styles", style)):
     dst = os.path.join(ch, d)

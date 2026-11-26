@@ -1,0 +1,111 @@
+{
+ "duration": 45.61,
+ "voice": "bm_george",
+ "sentences": [
+  {
+   "i": 1,
+   "para": 1,
+   "start": 0.0,
+   "end": 3.16,
+   "text": "At sunrise, you are taken to greet your mother."
+  },
+  {
+   "i": 2,
+   "para": 1,
+   "start": 3.46,
+   "end": 4.82,
+   "text": "Your real mother."
+  },
+  {
+   "i": 3,
+   "para": 1,
+   "start": 5.12,
+   "end": 10.93,
+   "text": "The consort who gave birth to you, and who has climbed the ranks of the palace because you lived."
+  },
+  {
+   "i": 4,
+   "para": 2,
+   "start": 11.63,
+   "end": 12.63,
+   "text": "You kneel."
+  },
+  {
+   "i": 5,
+   "para": 2,
+   "start": 12.93,
+   "end": 15.53,
+   "text": "You touch your forehead to the floor."
+  },
+  {
+   "i": 6,
+   "para": 2,
+   "start": 15.83,
+   "end": 19.48,
+   "text": "She asks about your lessons, your health, your manners."
+  },
+  {
+   "i": 7,
+   "para": 2,
+   "start": 19.78,
+   "end": 21.49,
+   "text": "She does not hug you."
+  },
+  {
+   "i": 8,
+   "para": 2,
+   "start": 21.79,
+   "end": 24.47,
+   "text": "Princes are not hugged in public."
+  },
+  {
+   "i": 9,
+   "para": 3,
+   "start": 25.17,
+   "end": 27.41,
+   "text": "To her, you are not just a son."
+  },
+  {
+   "i": 10,
+   "para": 3,
+   "start": 27.71,
+   "end": 29.29,
+   "text": "You are her future."
+  },
+  {
+   "i": 11,
+   "para": 3,
+   "start": 29.59,
+   "end": 35.14,
+   "text": "If you become Emperor one day, she becomes the most powerful woman in the empire."
+  },
+  {
+   "i": 12,
+   "para": 3,
+   "start": 35.44,
+   "end": 37.55,
+   "text": "If you fail, she is nothing."
+  },
+  {
+   "i": 13,
+   "para": 4,
+   "start": 38.25,
+   "end": 40.75,
+   "text": "Outside the hall, the nurse waits."
+  },
+  {
+   "i": 14,
+   "para": 4,
+   "start": 41.05,
+   "end": 43.18,
+   "text": "She is not allowed inside."
+  },
+  {
+   "i": 15,
+   "para": 4,
+   "start": 43.48,
+   "end": 44.91,
+   "text": "She is a servant."
+  }
+ ]
+}
